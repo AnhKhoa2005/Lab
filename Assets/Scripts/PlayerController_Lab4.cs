@@ -21,6 +21,7 @@ public class PlayerController_Lab4 : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.W)) Debug.Log("Get key up W");
         if (Input.GetMouseButton(1)) Debug.Log("Get Mouse Right");
         if (Input.GetMouseButton(0)) Debug.Log("Get Mouse Left");
+        //Bài 2
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         rb.linearVelocity = movement.normalized * speed;
