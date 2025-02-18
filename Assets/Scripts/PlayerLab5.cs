@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerLab5 : MonoBehaviour
 {
@@ -17,10 +18,14 @@ public class PlayerLab5 : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer sr;
     Animator ani;
-    bool IsGround, moveButton, jumping;
+    bool IsGround, DoubleJump = true, moveButton;
     float xDir, running = 0;
     int score = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Awake()
+    {
+        Time.timeScale = 1;
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -50,10 +55,18 @@ public class PlayerLab5 : MonoBehaviour
     }
     public void Jump()
     {
+        if (IsGround) DoubleJump = true;
         if (Input.GetKeyDown(KeyCode.W) && IsGround)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jump);
             AudioManager.instance.SFX(AudioManager.instance.JumpSFX);
+            DoubleJump = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.W) && DoubleJump)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jump);
+            AudioManager.instance.SFX(AudioManager.instance.JumpSFX);
+            DoubleJump = false;
         }
     }
 
@@ -82,6 +95,13 @@ public class PlayerLab5 : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jump);
             AudioManager.instance.SFX(AudioManager.instance.JumpSFX);
+            DoubleJump = true;
+        }
+        if (DoubleJump)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jump);
+            AudioManager.instance.SFX(AudioManager.instance.JumpSFX);
+            DoubleJump = false;
         }
     }
 
@@ -94,9 +114,11 @@ public class PlayerLab5 : MonoBehaviour
     public void AnimationUpDate()
     {
         bool running = xDir != 0;
-        jumping = !IsGround;
+        bool jumping = !IsGround;
+        bool doublejumping = !DoubleJump;
         ani.SetBool("run", running);
         ani.SetBool("jump", jumping);
+        ani.SetBool("doublejump", doublejumping);
     }
 
     public void RunSFX()
@@ -128,5 +150,10 @@ public class PlayerLab5 : MonoBehaviour
             Score.text = "Score: " + score.ToString();
             AudioManager.instance.SFX(AudioManager.instance.CollectSFX);
         }
+    }
+
+    public void reload()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
