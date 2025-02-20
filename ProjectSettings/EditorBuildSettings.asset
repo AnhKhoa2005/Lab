@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Lab4.unity
     guid: 1a7e3d615a689214ab5189ad7765efdb
   - enabled: 1
-    path: Assets/Scenes/Lab5+6.unity
+    path: Assets/Scenes/Lab5+6+7.unity
     guid: 2be011960aff1d04f9006ff7c07e5ba9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
