@@ -29,6 +29,7 @@ public class PlayerLab5 : MonoBehaviour
     }
     void Start()
     {
+        Application.targetFrameRate = 60;
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         ani = GetComponent<Animator>();
@@ -36,7 +37,7 @@ public class PlayerLab5 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        IsGround = Physics2D.OverlapCircle(GroundCheck.position, 0.5f, layerMask);
+        IsGround = Physics2D.OverlapCircle(GroundCheck.position, 0.4f, layerMask);
         Move();
         Jump();
         Flip();
